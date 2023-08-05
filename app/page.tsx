@@ -6,6 +6,7 @@ import LogoutButton from "@/components/LogoutButton";
 import LclyLogo from "@/components/LclyLogo";
 import { ProfileDrawer } from "@/components/profile/ProfileDraw";
 import { Header } from "@/app/Header";
+import SpinningIcon from "@/components/ui/SpinnerIcon";
 
 export const dynamic = "force-dynamic";
 
@@ -52,7 +53,7 @@ export default async function Index() {
         <div className="flex flex-col items-center mb-4 lg:mb-12">
           <div className="flex gap-8 justify-center items-center">
             <Link href="https://lcly.me/" target="_blank">
-              <LclyLogo className="text-black dark:text-white h-[90px] w-[90px]" />
+              <SpinningIcon />
             </Link>
           </div>
           <h1 className="sr-only">The Open Source Serapeum | a Lcly project</h1>
