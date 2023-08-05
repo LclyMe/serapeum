@@ -13,8 +13,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main className="min-h-screen bg-background flex flex-col items-center">
-          {children}
+        <main className="bg-gray-200 dark:bg-white">
+          <div vaul-drawer-wrapper="" className="bg-background">
+            {children}
+          </div>
         </main>
       </body>
     </html>
