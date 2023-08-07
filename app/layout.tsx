@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 import SupabaseProvider from "@/components/providers/supabase-provider";
-import { getSession } from "@/lib/session";
+import { getSession } from "@/app/session";
 
 export const metadata = {
   title: "Serapeum",

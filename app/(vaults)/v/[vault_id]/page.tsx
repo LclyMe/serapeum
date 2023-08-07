@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { CreateVaultButton } from "@/components/vaults/CreateVaultButton";
 import { TimelineFeed } from "@/components/vaults/TimelineFeed";
 import { VaultCard } from "@/components/vaults/VaultCard";
-import { getSupabase } from "@/lib/session";
+import { getSupabase } from "@/app/session";
 import { notFound } from "next/navigation";
 import {
   FiBookmark,

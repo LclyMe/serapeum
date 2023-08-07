@@ -1,13 +1,14 @@
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Header } from "../Header";
+import { getSupabase } from "../session";
 
 export default async function VaultLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = await getSupabase();
 
   const {
     data: { user },

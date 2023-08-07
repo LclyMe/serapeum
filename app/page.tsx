@@ -4,11 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { Header } from "@/app/Header";
 import SpinningIcon from "@/components/ui/SpinnerIcon";
+import { getSupabase } from "./session";
 
 export const dynamic = "force-dynamic";
 
 export default async function Index() {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = await getSupabase();
 
   const {
     data: { user },

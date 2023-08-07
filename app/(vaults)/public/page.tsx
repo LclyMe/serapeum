@@ -1,6 +1,6 @@
 import { CreateVaultButton } from "@/components/vaults/CreateVaultButton";
 import { VaultCard } from "@/components/vaults/VaultCard";
-import { getSupabase } from "@/lib/session";
+import { getSupabase } from "@/app/session";
 
 export default async function PublicValutsPage() {
   const supabase = await getSupabase();

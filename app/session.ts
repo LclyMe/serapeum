@@ -10,12 +10,6 @@ export async function getSession() {
     data: { session },
   } = await supabase.auth.getSession();
   if (!session) return null;
-  // const { data } = await supabase
-  //   .from("users")
-  //   .select("*")
-  //   .eq("id", session.user.id)
-  //   .single();
-  // session.user["profile"] = data;
   return session;
 }
 
