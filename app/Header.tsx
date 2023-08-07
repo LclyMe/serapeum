@@ -6,15 +6,31 @@ import LogoutButton from "../components/LogoutButton";
 import Link from "next/link";
 import { AuthUser } from "@supabase/supabase-js";
 import { useState } from "react";
+import { useTheme } from "next-themes";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { Button } from "@/components/ui/button";
 
 export function Header({ user }: { user?: AuthUser | null }) {
   const [profileDrawOpen, setProfileDrawOpen] = useState(false);
+
   return (
     <header className="w-full">
       <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-        <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm text-foreground">
-          <div className="font-semibold text-lg">Serapeum</div>
-          <div>
+        <div className="w-full max-w-5xl flex justify-between items-center p-3 text-sm text-foreground">
+          <div className="flex items-center gap-6">
+            <Link href="/">
+              <div className="font-semibold text-lg">Serapeum</div>
+            </Link>
+            <Link href="/public" className="text-md hover:underline">
+              Public Vaults
+            </Link>
+            {user && (
+              <Link href="/vaults" className="text-md hover:underline">
+                Vaults
+              </Link>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
             {user ? (
               <div className="flex items-center gap-2">
                 <button
@@ -33,13 +49,11 @@ export function Header({ user }: { user?: AuthUser | null }) {
                 <LogoutButton />
               </div>
             ) : (
-              <Link
-                href="/login"
-                className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
-              >
-                Login
+              <Link href="/login">
+                <Button variant="outline">Login</Button>
               </Link>
             )}
+            <ThemeToggle />
           </div>
         </div>
       </nav>

@@ -2,41 +2,10 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import Image from "next/image";
-import LogoutButton from "@/components/LogoutButton";
-import LclyLogo from "@/components/LclyLogo";
-import { ProfileDrawer } from "@/components/profile/ProfileDraw";
 import { Header } from "@/app/Header";
 import SpinningIcon from "@/components/ui/SpinnerIcon";
 
 export const dynamic = "force-dynamic";
-
-const resources = [
-  {
-    title: "Mystery 1",
-    subtitle: "TODO",
-    url: null,
-    image: "/images/ilu2.png",
-  },
-  {
-    title: "Mystery 2",
-    subtitle: "TODO",
-    url: null,
-    image: "/images/ilu1.png",
-  },
-  {
-    title: "Mystery 3",
-    subtitle: "TODO",
-    url: null,
-    image: "/images/ilu3.png",
-  },
-];
-
-const examples = [
-  { type: "Client Components", src: "app/_examples/client-component/page.tsx" },
-  { type: "Server Components", src: "app/_examples/server-component/page.tsx" },
-  { type: "Server Actions", src: "app/_examples/server-action/page.tsx" },
-  { type: "Route Handlers", src: "app/_examples/route-handler.ts" },
-];
 
 export default async function Index() {
   const supabase = createServerComponentClient({ cookies });
@@ -45,11 +14,32 @@ export default async function Index() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  const resources = [
+    {
+      title: "Mystery 1",
+      subtitle: "TODO",
+      url: null,
+      image: "/images/ilu2.png",
+    },
+    {
+      title: "Mystery 2",
+      subtitle: "TODO",
+      url: null,
+      image: "/images/ilu1.png",
+    },
+    {
+      title: "Mystery 3",
+      subtitle: "TODO",
+      url: null,
+      image: "/images/ilu3.png",
+    },
+  ];
+
   return (
     <div className="w-full flex flex-col items-center max-w-screen overflow-hidden">
       <Header user={user} />
 
-      <div className="animate-in flex flex-col gap-14 opacity-0 max-w-4xl px-3 py-16 lg:py-24 text-foreground">
+      <div className="animate-in flex flex-col gap-14 opacity-0 max-w-5xl px-3 py-16 lg:py-24 text-foreground">
         <div className="flex flex-col items-center mb-4 lg:mb-12">
           <div className="flex gap-8 justify-center items-center">
             <Link href="https://lcly.me/" target="_blank">
