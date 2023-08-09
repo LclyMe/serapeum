@@ -9,9 +9,9 @@ export default async function ValutsPage() {
   // const pinnedVaults = vaults.filter((vault) => vault.pinned);
   return (
     <div className="animate-in flex w-full flex-col gap-14 opacity-0 max-w-5xl px-3 py-8 lg:py-14 text-foreground">
-      <div className="flex justify-between">
+      <div className="flex gap-2 justify-between">
         <h1 className="text-2xl md:text34xl font-semibold text-bold">
-          My Valuts
+          My Vaults
         </h1>
         <CreateVaultButton />
       </div>

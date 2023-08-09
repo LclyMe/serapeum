@@ -14,7 +14,6 @@ export async function POST(request: Request) {
         redirectTo: `${requestUrl.origin}/auth/callback`,
       },
   });
-  console.log(data);
 
   if (error) {
     return NextResponse.redirect(

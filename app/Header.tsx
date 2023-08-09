@@ -2,13 +2,14 @@
 
 import { Drawer } from "vaul";
 import { ProfileDrawer } from "../components/profile/ProfileDraw";
-import LogoutButton from "../components/LogoutButton";
+import { LogoutButtonIcon } from "../components/LogoutButton";
 import Link from "next/link";
 import { AuthUser } from "@supabase/supabase-js";
 import { useState } from "react";
 import { useTheme } from "next-themes";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function Header({ user }: { user?: AuthUser | null }) {
   const [profileDrawOpen, setProfileDrawOpen] = useState(false);
@@ -22,10 +23,20 @@ export function Header({ user }: { user?: AuthUser | null }) {
               <div className="font-semibold text-lg">Serapeum</div>
             </Link>
             <Link href="/public" className="text-md hover:underline">
-              Public Vaults
+              Public{" "}
+              <span
+                className={cn({
+                  "hidden md:inline": user,
+                })}
+              >
+                Vaults
+              </span>
             </Link>
             {user && (
-              <Link href="/vaults" className="text-md hover:underline">
+              <Link
+                href="/vaults"
+                className={cn("text-md hover:underline hidden md:block")}
+              >
                 Vaults
               </Link>
             )}
@@ -46,14 +57,18 @@ export function Header({ user }: { user?: AuthUser | null }) {
                     @{user.user_metadata?.preferred_username}
                   </span>
                 </button>
-                <LogoutButton />
+                <div className="hidden md:block">
+                  <LogoutButtonIcon />
+                </div>
               </div>
             ) : (
               <Link href="/login">
                 <Button variant="outline">Login</Button>
               </Link>
             )}
-            <ThemeToggle />
+            <div className="hidden md:block">
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </nav>

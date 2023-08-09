@@ -15,9 +15,9 @@ export default async function VaultLayout({
   } = await supabase.auth.getUser();
 
   return (
-    <div className="flex flex-col flex-grow md:min-h-screen">
+    <div className="flex flex-col flex-grow">
       <Header user={user} />
-      <div className="flex flex-col items-center">{children}</div>
+      <div className="flex flex-col items-center flex-grow">{children}</div>
     </div>
   );
 }

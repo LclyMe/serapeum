@@ -1,0 +1,54 @@
+.vertical-timeline-element-content {
+    border: 1px solid #ddd;
+    /* background: "rgba(250, 250, 250, .1)"; */
+    @apply rounded-lg border border-neutral-200 bg-white text-neutral-950 shadow-sm dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-50;
+    box-shadow: none;
+    border-radius: 14px;
+          /* //   theme === "light" ? "rgba(250, 250, 250, .1)" : "rgba(10, 10, 10, 1)",
+          // color: "#fff",
+          // boxShadow: "none",
+          // borderRadius: 14, */
+}
+
+.vertical-timeline-element-content-arrow {
+    border-right: 7px solid #ddd;
+}
+
+.vertical-timeline--one-column-left {
+    --line-color: #e9e9e9;
+}
+
+.vertical-timeline--one-column-left::before {
+    width: 3px;
+}
+
+.vertical-timeline-element-icon {
+    background-color: #fff;
+    border-color: #e9e9e9;
+}
+
+.vertical-timeline-element-date {
+    font-size: 12px !important;
+}
+
+/* .vertical-timeline-element-content {
+    border-color:  #111;
+    background: "#222";
+} */
+
+.dark .vertical-timeline-element-content-arrow {
+    border-right: 7px solid #222;
+}
+
+.dark .vertical-timeline--one-column-left {
+    --line-color: #222;
+}
+
+.dark .vertical-timeline--one-column-left::before {
+    width: 3px;
+}
+
+.dark .vertical-timeline-element-icon {
+    background-color: #111;
+    border-color: #333;
+}

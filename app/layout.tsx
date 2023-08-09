@@ -16,11 +16,14 @@ export default async function RootLayout({
   const session = await getSession();
   return (
     <html lang="en">
-      <body>
+      <body className="flex min-h-screen">
         <SupabaseProvider session={session}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <main className="bg-gray-200 dark:bg-white">
-              <div vaul-drawer-wrapper="" className="bg-background">
+            <main className="bg-gray-200 dark:bg-white flex flex-grow">
+              <div
+                vaul-drawer-wrapper=""
+                className="bg-background w-full flex flex-grow"
+              >
                 {children}
               </div>
             </main>

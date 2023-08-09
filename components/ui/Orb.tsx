@@ -28,14 +28,12 @@ const Orb = ({ text, className }: { text: string; className?: string }) => {
 
   useEffect(() => {
     const generateGradient = async () => {
-      console.log("text", text);
       const hash = await generateSHA256(text);
       const rgbColor = hexToRGB(hash);
 
       // Calculate the angle to generate a circular gradient
       const angle = parseInt(hash.slice(-5), 16) % 360;
       const outerRGB = calculateOuterColor(rgbColor, angle);
-      console.log("outerRGB", JSON.stringify(outerRGB));
 
       // Create a circular gradient using the hash-based RGB values
       const gradientValue = `linear-gradient(75deg, rgb(${rgbColor.r}, ${rgbColor.g}, ${rgbColor.b}), rgb(${outerRGB.r}, ${outerRGB.g}, ${outerRGB.b}))`;
@@ -48,7 +46,6 @@ const Orb = ({ text, className }: { text: string; className?: string }) => {
   // Function to calculate outer color based on angle and hash
   const calculateOuterColor = (rgbColor: any, angle: number) => {
     const variation = parseInt(((angle / 360) * 200).toFixed()); // Adjust the variation level as needed
-    console.log("variation", variation);
     const r = Math.min(255, Math.max(0, rgbColor.r + variation));
     const g = Math.min(255, Math.max(0, rgbColor.g + variation));
     // const b = Math.min(255, Math.max(0, rgbColor.b + variation));
