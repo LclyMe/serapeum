@@ -35,7 +35,7 @@ export function VaultCard({
             {!compact && (
               <Orb text={vault.short_id || vault.id} className="h-6 w-6 mb-2" />
             )}
-            <CardTitle className="items-center flex flex-row">
+            <CardTitle className="items-center flex flex-row text-2xl">
               {compact && (
                 <Orb
                   text={vault.short_id || vault.id}

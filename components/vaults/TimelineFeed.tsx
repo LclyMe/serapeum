@@ -7,6 +7,7 @@ import {
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
+import Embed from "react-embed";
 import "./TimelineFeed.css";
 import { Tweet } from "react-tweet";
 
@@ -18,8 +19,21 @@ const getTweetIdFromURL = (url: string): string | null => {
   return match ? match[3] : null;
 };
 
+const isValidURL = (string: string) => {
+  let url;
+
+  try {
+    url = new URL(string);
+  } catch (_) {
+    return false;
+  }
+
+  return url.protocol === "http:" || url.protocol === "https:";
+};
+
 export function TimelineEntryCard({ entry }: { entry: any }) {
-  const tweetId = getTweetIdFromURL(entry.text);
+  const isURL = isValidURL(entry.text);
+  const tweetId = isURL && getTweetIdFromURL(entry.text);
   return (
     <VerticalTimelineElement
       className={"vertical-timeline-element--work"}
@@ -49,23 +63,28 @@ export function TimelineEntryCard({ entry }: { entry: any }) {
         </h4>
       )}
       {tweetId && (
-        <div className={entry.description ? "-mt-2" : "-mt-4"}>
+        <div className={entry.description ? "-mt-1" : "-mt-4"}>
           <Tweet id={tweetId} />
+        </div>
+      )}
+      {isURL && !tweetId && (
+        <div>
+          <Embed url={entry.text} />
         </div>
       )}
       {entry.text && (
         <div
           className={cn({
-            "mt-2": entry.name || entry.description,
+            "mt-2": entry.name || entry.description || (isURL && !tweetId),
             "text-xs": tweetId,
           })}
         >
           <a
             target="_blank"
             className={cn({
-              "text-blue-600 dark:text-blue-400": tweetId,
+              "text-blue-600 dark:text-blue-400": isURL,
             })}
-            href={tweetId && entry.text}
+            href={isURL && entry.text}
           >
             <span className="m-0 opacity-75">{entry.text}</span>
           </a>
