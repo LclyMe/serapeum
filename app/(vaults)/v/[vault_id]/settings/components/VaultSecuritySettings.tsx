@@ -11,9 +11,14 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { useState } from "react";
 
 export function VaultSecuritySettings({ vault }: { vault: any }) {
-  console.log("vault", vault);
+  const [isPublic, setPublic] = useState(vault.public || false);
+  const [isEncrypted, setEncypted] = useState(vault.encrypted || false);
+  const [allowPublicSubmissions, setAllowPublicSubmissions] = useState(
+    vault.public_submissions || false
+  );
   return (
     <Card>
       <CardHeader>
@@ -30,7 +35,12 @@ export function VaultSecuritySettings({ vault }: { vault: any }) {
               Allow anyone to view the contents of this vault.
             </span>
           </Label>
-          <Switch id="public" checked={vault.public} />
+          <Switch
+            id="public"
+            disabled={isEncrypted}
+            checked={isPublic}
+            onCheckedChange={setPublic}
+          />
         </div>
         <div className="flex items-center justify-between space-x-2">
           <Label htmlFor="functional" className="flex flex-col space-y-1">
@@ -40,7 +50,12 @@ export function VaultSecuritySettings({ vault }: { vault: any }) {
               analysis features.
             </span>
           </Label>
-          <Switch id="encrypted" checked={vault.encrypted} />
+          <Switch
+            id="encrypted"
+            disabled={isPublic}
+            checked={isEncrypted}
+            onCheckedChange={setEncypted}
+          />
         </div>
         <div className="flex items-center justify-between space-x-2">
           <Label htmlFor="functional" className="flex flex-col space-y-1">
@@ -50,7 +65,11 @@ export function VaultSecuritySettings({ vault }: { vault: any }) {
               it's added.
             </span>
           </Label>
-          <Switch id="encrypted" checked={vault.encrypted} />
+          <Switch
+            id="allowPublicSubmissions"
+            checked={allowPublicSubmissions}
+            onCheckedChange={setAllowPublicSubmissions}
+          />
         </div>
       </CardContent>
       <CardFooter>

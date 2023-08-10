@@ -39,7 +39,7 @@ export default async function ValutSettingsPage({ params }: VaultPageProps) {
         <div className="col-span-3">
           <VaultUserPermissions />
         </div>
-        <div className="col-span-2 grid gap-4">
+        <div className="col-span-2 md:grid gap-4">
           <VaultSecuritySettings vault={vault} />
           <DeleteVault vault={vault} />
         </div>

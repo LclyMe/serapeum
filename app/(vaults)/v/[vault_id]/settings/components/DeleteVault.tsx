@@ -1,5 +1,5 @@
-import { FiTrash2 } from "react-icons/fi";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,14 +12,14 @@ import {
 } from "@/components/ui/dialog";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
+import { useRouter } from "next/navigation";
+import { useSupabase } from "@/components/providers/supabase-provider";
+import { useCallback } from "react";
 
 export default function DeleteVault({ vault }: { vault: any }) {
   return (
@@ -32,13 +32,21 @@ export default function DeleteVault({ vault }: { vault: any }) {
       </CardHeader>
 
       <CardFooter>
-        <DeleteVaultButton />
+        <DeleteVaultButton vault={vault} />
       </CardFooter>
     </Card>
   );
 }
 
-export function DeleteVaultButton() {
+export function DeleteVaultButton({ vault }: { vault: any }) {
+  const router = useRouter();
+  const { supabase } = useSupabase();
+  const deleteVault = useCallback(async () => {
+    await supabase.from("vaults").delete().eq("id", vault.id);
+    // revalidatePath("/vaults");
+    router.refresh();
+    router.push("/vaults");
+  }, [vault, router, supabase]);
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -57,10 +65,8 @@ export function DeleteVaultButton() {
         <div>
           <div className="grid gap-4 py-4 mb-2"></div>
           <DialogFooter className="flex md:justify-between">
-            <Button variant="secondary" type="submit">
-              Cancel
-            </Button>
-            <Button variant="destructive" type="submit">
+            <Button variant="secondary">Cancel</Button>
+            <Button onClick={deleteVault} variant="destructive" type="submit">
               Delete
             </Button>
           </DialogFooter>
