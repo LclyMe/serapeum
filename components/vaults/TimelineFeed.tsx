@@ -12,6 +12,16 @@ import "./TimelineFeed.css";
 import { Tweet } from "react-tweet";
 import { useSupabase } from "../providers/supabase-provider";
 import { useRouter } from "next/navigation";
+import EntriesSearch from "@/app/(vaults)/v/[vault_id]/components/EntriesSearch";
+import { useMemo, useState } from "react";
+import { Badge } from "../ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 const getTweetIdFromURL = (url: string): string | null => {
   const twitterRegex =
@@ -111,14 +121,71 @@ export function TimelineEntryCard({ entry }: { entry: any }) {
   );
 }
 
-export function TimelineFeed({ entries }: { entries?: any[] | null }) {
-  const { theme } = useTheme();
+export function TimelineFeed({
+  entries,
+  vault,
+}: {
+  entries?: any[] | null;
+  vault: any;
+}) {
+  const [filterIds, setFilterIds] = useState<string[] | null>(null);
+  console.log("filterIds", filterIds);
+  const filteredEntries = useMemo(
+    () =>
+      filterIds
+        ? entries?.filter((entry) => filterIds.includes(entry.id))
+        : entries,
+    [entries, filterIds]
+  );
+  console.log("filteredEntries", filteredEntries);
   return (
     <>
+      <div className="flex gap-5 flex-col-reverse md:flex-row items-center justify-between md:-mb-1">
+        <div className="flex w-full">
+          <Select defaultValue="latest">
+            <SelectTrigger className="w-[140px] h-8 rounded-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="latest">Latest</SelectItem>
+              <SelectItem value="chronological">Chronological</SelectItem>
+              <SelectItem value="images">Images</SelectItem>
+              <SelectItem value="links">Links</SelectItem>
+              <SelectItem value="files">Files</SelectItem>
+              <SelectItem value="map">Map</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <EntriesSearch
+          vault_id={vault.id}
+          onResult={(ids) => setFilterIds(ids)}
+        />
+      </div>
       <VerticalTimeline layout="1-column-left">
-        {entries?.map((entry) => (
+        {filteredEntries?.map((entry) => (
           <TimelineEntryCard entry={entry} />
         ))}
+        {filteredEntries?.length === 0 && entries?.length! > 0 && (
+          <VerticalTimelineElement
+            className={"vertical-timeline-element--work"}
+            dateClassName="text-xs text-gray-500 w-full"
+            iconStyle={{
+              color: "#fff",
+              borderWidth: 2,
+              boxShadow: "none",
+              height: 30,
+              width: 30,
+              marginLeft: 5,
+            }}
+          >
+            <h4 className="opacity-85">
+              ⚠️{" "}
+              <span className="ml-1 text-sm">
+                Nothing found. Try a different search.
+              </span>
+            </h4>
+          </VerticalTimelineElement>
+        )}
         {entries?.length === 0 && (
           <VerticalTimelineElement
             className={"vertical-timeline-element--work"}

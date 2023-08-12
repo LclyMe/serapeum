@@ -30,8 +30,8 @@ export default async function ValutLayout({
 
   return (
     <>
-      <div className="animate-in relative flex-grow flex w-full flex-col gap-14 opacity-0 max-w-5xl px-3 py-8 lg:py-14 text-foreground">
-        <div className="flex justify-between items-start">
+      <div className="animate-in relative flex-grow flex w-full flex-col opacity-0 max-w-5xl px-3 py-8 lg:py-14 text-foreground">
+        <div className="flex justify-between items-start pb-8">
           <div className="flex flex-row items-start">
             <div>
               <Orb
