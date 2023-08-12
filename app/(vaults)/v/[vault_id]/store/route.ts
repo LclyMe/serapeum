@@ -17,7 +17,7 @@ export async function POST(Request: Request, {params}: { params: { vault_id: str
     supabaseKey: process.env.SUPABASE_SECRET_KEY
   })
   const { data: apiKey } = await supabase.from('api_keys').select().eq('key', token).single();
-  const { data: vault } = await supabase.from('vaults').select().eq('short_id', params.vault_id).match({created_by: apiKey.user_id }).single();
+  const { data: vault } = await supabase.from('vaults').select().eq('short_id', params.vault_id).single();
   if (!vault) {
     console.log("Vault not found");
     return NextResponse.error();
