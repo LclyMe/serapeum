@@ -10,6 +10,8 @@ import "react-vertical-timeline-component/style.min.css";
 import Embed from "react-embed";
 import "./TimelineFeed.css";
 import { Tweet } from "react-tweet";
+import { useSupabase } from "../providers/supabase-provider";
+import { useRouter } from "next/navigation";
 
 const getTweetIdFromURL = (url: string): string | null => {
   const twitterRegex =
@@ -32,6 +34,21 @@ const isValidURL = (string: string) => {
 };
 
 export function TimelineEntryCard({ entry }: { entry: any }) {
+  const router = useRouter();
+  const { supabase } = useSupabase();
+  const channel = supabase
+    .channel("changes")
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "entries",
+        filter: "vault_id=eq." + entry.vault_id,
+      },
+      (payload) => router.refresh()
+    )
+    .subscribe();
   const isURL = isValidURL(entry.text);
   const tweetId = isURL && getTweetIdFromURL(entry.text);
   return (

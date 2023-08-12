@@ -38,8 +38,6 @@ export default async function Index() {
 
   return (
     <div className="flex flex-col flex-grow">
-      <Header user={user} />
-
       <div className="flex flex-col items-center flex-grow">
         <div className="animate-in flex w-full flex-col gap-14 opacity-0 max-w-5xl px-3 py-12 lg:py-16 text-foreground">
           <div className="flex flex-col items-center mb-4 lg:mb-12">
@@ -52,7 +50,7 @@ export default async function Index() {
               The Open Source Serapeum | a Lcly project
             </h1>
             <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center my-12">
-              Enter the <strong>Serapeum</strong>.
+              Modern Data <strong>Archives</strong>
             </p>
             <div className="flex items-center gap-3">
               <div className="bg-foreground py-3 px-6 rounded-lg font-mono text-sm text-background">

@@ -29,7 +29,12 @@ export function VaultCard({
 }) {
   return (
     <Link href={"/v/" + (vault.short_id || vault.id)} className="h-full">
-      <Card className="flex-grow h-full flex flex-col">
+      <Card className="flex-grow h-full flex flex-col relative">
+        {vault.short_id && (
+          <span className="text-xs opacity-10 absolute right-3 top-3">
+            v.{vault.short_id}
+          </span>
+        )}
         <div className={cn("flex flex-grow", { " flex-row": compact })}>
           <CardHeader>
             {!compact && (

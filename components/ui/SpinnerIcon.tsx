@@ -39,7 +39,7 @@ const SpinningIcon = () => {
     <LclyLogo
       className={`${
         spin ? "spinning-icon" : ""
-      } text-black dark:text-white h-[90px] w-[90px]`}
+      } text-black dark:text-white h-[75px] w-[75px]`}
     />
   );
 };

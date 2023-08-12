@@ -61,7 +61,7 @@ export function VaultSecuritySettings({ vault }: { vault: any }) {
           <Label htmlFor="functional" className="flex flex-col space-y-1">
             <span>Public submissions</span>
             <span className="font-normal leading-snug text-muted-foreground text-sm opacity-50">
-              Allow anyone to submit content. You will be able to review beofre
+              Allow anyone to submit content. You will be able to review before
               it's added.
             </span>
           </Label>

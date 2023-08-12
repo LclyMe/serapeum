@@ -1,11 +1,16 @@
 import { CreateVaultButton } from "@/components/vaults/CreateVaultButton";
 import { VaultCard } from "@/components/vaults/VaultCard";
-import { getSupabase } from "@/app/session";
+import { getSession, getSupabase } from "@/app/session";
 import { FiBookmark } from "react-icons/fi";
 
 export default async function ValutsPage() {
   const supabase = await getSupabase();
-  const { data: vaults } = await supabase.from("vaults").select().limit(20);
+  const session = await getSession();
+  const { data: vaults } = await supabase
+    .from("vaults")
+    .select()
+    .or(`public.eq.0,and(public.eq.1,created_by.eq.${session?.user.id})`)
+    .limit(20);
   // const pinnedVaults = vaults.filter((vault) => vault.pinned);
   return (
     <div className="animate-in flex w-full flex-col gap-14 opacity-0 max-w-5xl px-3 py-8 lg:py-14 text-foreground">

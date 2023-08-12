@@ -2,7 +2,7 @@
 
 import { AuthUser } from "@supabase/supabase-js";
 import { Drawer } from "vaul";
-import { FiBox, FiLogOut, FiTrash2 } from "react-icons/fi";
+import { FiBox, FiLogOut, FiSettings, FiTrash2 } from "react-icons/fi";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ThemeToggle } from "../ui/ThemeToggle";
@@ -56,10 +56,20 @@ export function ProfileDrawer({
                   <FiBox size={20} className="mr-2" />
                   <span className="">My vaults</span>
                 </button>
-                <div className="w-full max-w-sm text-red-600 bg-btn-background px-8 py-3 flex items-center justify-center rounded-lg hover:bg-btn-background-hove">
+                <button
+                  onClick={() => {
+                    toggle(false);
+                    router.push("/settings");
+                  }}
+                  className="w-full max-w-sm dark:text-foreground/80 bg-btn-background px-8 py-3 flex items-center justify-center rounded-lg hover:bg-btn-background-hove"
+                >
+                  <FiSettings size={20} className="mr-2" />
+                  <span className="">Settings</span>
+                </button>
+                {/* <div className="w-full max-w-sm text-red-600 bg-btn-background px-8 py-3 flex items-center justify-center rounded-lg hover:bg-btn-background-hove">
                   <FiTrash2 size={20} className="mr-2" />
                   <span className="">Delete account</span>
-                </div>
+                </div> */}
                 <LogoutButton />
               </div>
             </div>
