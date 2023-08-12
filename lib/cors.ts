@@ -4,7 +4,7 @@ export const corsHeaders = {
 }
 
 export const handleCORS = (cb: (req: any) => Promise<Response>) => {
-    return async (req) => {
+    return async (req: any) => {
       if (req.method === 'OPTIONS') {
         return new Response('ok', { headers: corsHeaders })
       }
