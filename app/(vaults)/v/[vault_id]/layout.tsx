@@ -33,10 +33,12 @@ export default async function ValutLayout({
       <div className="animate-in relative flex-grow flex w-full flex-col gap-14 opacity-0 max-w-5xl px-3 py-8 lg:py-14 text-foreground">
         <div className="flex justify-between items-start">
           <div className="flex flex-row items-start">
-            <Orb
-              text={vault.short_id || vault.id}
-              className="h-7 w-7 mr-3 mt-1"
-            />
+            <div>
+              <Orb
+                text={vault.short_id || vault.id}
+                className="h-7 w-7 mr-3 mt-1"
+              />
+            </div>
             <div>
               <h1 className="text-2xl md:text34xl font-semibold text-bold mb-1">
                 {vault.name}

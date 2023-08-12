@@ -60,7 +60,11 @@ export function CreateEntryButton({ vaultId }: { vaultId: string }) {
   if (!session?.user) {
     return (
       <Link href="/login">
-        <Button variant="secondary" className="text-sm md:text-base">
+        <Button
+          variant="secondary"
+          size={"sm"}
+          className="text-sm md:text-base"
+        >
           <FiLock className="mr-2" />
           Login to add entry
         </Button>
