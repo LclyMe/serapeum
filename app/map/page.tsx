@@ -20,7 +20,7 @@ export default function MapScreen() {
       //     color: "#ef3131",
       //     "horizon-blend": 0.5,
       //   }}
-      projection={"globe"}
+      projection={"globe" as any}
       style={{ width: "100%", height: "100%" }}
       mapStyle="mapbox://styles/mapbox/streets-v11"
     >
