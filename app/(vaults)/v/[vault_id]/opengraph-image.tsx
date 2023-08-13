@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ImageResponse } from "next/server";
 import { FiLock } from "react-icons/fi";
+// import { Inter } from "next/font/google";
 
 // Route segment config
 export const runtime = "edge";
@@ -69,22 +70,29 @@ export default async function OGImage({
       // ImageResponse JSX element
       <div
         style={{
-          fontSize: 74,
-          background: "white",
+          background: "rgb(249, 250, 251)",
           width: "100%",
           height: "100%",
           display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          // alignItems: "center",
+          justifyContent: "flex-end",
+          flexDirection: "column",
+          padding: 100,
         }}
       >
         <img
           src="https://serapeum.vercel.app/images/logo.png"
           alt="Serapeum"
-          height={100}
-          width={100}
+          height={130}
+          width={130}
+          tw="absolute top-0 left-0 m-14"
         />
-        {vault.name}
+        <div tw="flex flex-col mb-14">
+          <h3 tw="m-0 text-5xl mb-2">{vault.name}</h3>
+          {vault.description && (
+            <p tw="m-0 text-3xl opacity-70 max-w-[70%]">{vault.description}</p>
+          )}
+        </div>
       </div>
     ),
     // ImageResponse options
@@ -95,7 +103,7 @@ export default async function OGImage({
       //   fonts: [
       //     {
       //       name: "Inter",
-      //       data: await interSemiBold,
+      //       data: Inter,
       //       style: "normal",
       //       weight: 400,
       //     },
