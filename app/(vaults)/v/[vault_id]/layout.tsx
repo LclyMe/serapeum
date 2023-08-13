@@ -6,10 +6,33 @@ import { notFound } from "next/navigation";
 import { FiLock } from "react-icons/fi";
 import { CreateEntryButton } from "@/components/entries/CreateEntryButton";
 import VaultActionMenu from "@/components/vaults/VaultActionMenu";
+import { Metadata, ResolvingMetadata } from "next";
 
 interface VaultPageProps {
   params: { vault_id: string };
   children: React.ReactNode;
+}
+
+export async function generateMetadata(
+  { params }: VaultPageProps,
+  parent?: ResolvingMetadata
+): Promise<Metadata> {
+  const supabase = await getSupabase();
+  const isShortId = params.vault_id.length === 10;
+  const { data: vault } = await supabase
+    .from("vaults")
+    .select()
+    .eq(isShortId ? "short_id" : "id", params.vault_id)
+    .single();
+
+  if (!vault) {
+    return notFound();
+  }
+
+  return {
+    title: `${vault.name} Vault`,
+    description: vault.description,
+  };
 }
 
 export default async function ValutLayout({
