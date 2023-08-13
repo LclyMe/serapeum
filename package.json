@@ -24,6 +24,7 @@
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
     "date-fns": "^2.30.0",
+    "fathom-client": "^3.5.0",
     "lucide-react": "^0.264.0",
     "mapbox-gl": "^2.15.0",
     "nanoid": "^4.0.2",

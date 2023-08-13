@@ -121,10 +121,10 @@ export function CreateEntryButton({ vaultId }: { vaultId: string }) {
             </div>
             <div className="grid grid-cols-4 items-start gap-4">
               <Label htmlFor="text" className="text-right">
-                Content
+                Content<sup>*</sup>
               </Label>
               <Textarea
-                placeholder="You can paste in markdown, links or even "
+                placeholder="You can paste in text, markdown, and even links."
                 id="text"
                 value={text}
                 onChange={(e) => setText(e.target.value)}

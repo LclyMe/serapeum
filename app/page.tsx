@@ -1,12 +1,8 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 import Link from "next/link";
 import Image from "next/image";
-import { Header } from "@/app/Header";
-import SpinningIcon from "@/components/ui/SpinnerIcon";
 import { getSupabase } from "./session";
 import { VaultCard } from "@/components/vaults/VaultCard";
-import { FiArrowRight } from "react-icons/fi";
+import { FiArrowRight, FiBox } from "react-icons/fi";
 
 export const dynamic = "force-dynamic";
 
@@ -67,16 +63,19 @@ export default async function Index() {
             </p>
             <p className="mb-12 text-xl opacity-60 text-center">
               Open source storage, collaboration, and AI tools designed
-              <br /> for human data.
+              <br className="hidden md:block" /> for human data.
             </p>
             <div className="flex items-center gap-2">
-              <div className="bg-foreground py-3 px-6 rounded-lg font-mono text-sm text-background">
-                Gates will open <strong>soon</strong>...
-              </div>
+              <Link
+                href={user ? "/vaults" : "/login"}
+                className="bg-foreground hover:dark:bg-[#ccc] cursor-pointer hover:bg-[#202020] transition duration-100 flex items-center py-3 px-6 rounded-lg font-mono text-sm text-background"
+              >
+                <FiBox className="mr-2" size={18} /> Create a vault
+              </Link>
               <Link
                 href={"https://github.com/LclyMe/serapeum"}
                 target="_blank"
-                className="bg-foreground hover:dark:bg-[#ccc] hover:bg-[#222] transition duration-100 py-3 px-3 rounded-lg font-mono text-sm text-background"
+                className="bg-foreground hover:dark:bg-[#ccc] hover:bg-[#202020] transition duration-100 py-3 px-3 rounded-lg font-mono text-sm text-background"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

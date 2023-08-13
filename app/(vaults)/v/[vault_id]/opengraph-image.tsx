@@ -36,11 +36,7 @@ export default async function OGImage({
     .eq(isShortId ? "short_id" : "id", params.vault_id)
     .single();
 
-  if (!vault) {
-    return notFound();
-  }
-
-  if (!vault.public) {
+  if (!vault || !vault.public) {
     return new ImageResponse(
       (
         <div
