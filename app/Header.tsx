@@ -20,7 +20,8 @@ export function Header({ user }: { user?: AuthUser | null }) {
         <div className="w-full max-w-5xl flex justify-between items-center p-3 text-sm text-foreground">
           <div className="flex items-center gap-6">
             <Link href="/">
-              <div className="font-semibold text-lg">Serapeum</div>
+              <div className="font-semibold text-3xl -mt-1">𝕊</div>
+              <span className="sr-only">Serapeum</span>
             </Link>
             <Link href="/public" className="text-md hover:underline">
               Public{" "}

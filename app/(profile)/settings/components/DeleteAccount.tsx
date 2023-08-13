@@ -18,6 +18,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useCallback } from "react";
+import { useSupabase } from "@/components/providers/supabase-provider";
 
 export default function DeleteAccount() {
   return (
@@ -38,7 +39,7 @@ export default function DeleteAccount() {
 
 export function DeleteAccountButton() {
   // const router = useRouter();
-  // const { supabase } = useSupabase();
+  const { supabase } = useSupabase();
   const deleteAccount = useCallback(async () => {
     // await supabase.from("vaults").delete().eq("id", vault.id);
     // // revalidatePath("/vaults");
@@ -54,7 +55,7 @@ export function DeleteAccountButton() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Sure you want to delete?</DialogTitle>
+          <DialogTitle>Are you sure?</DialogTitle>
           <DialogDescription>
             This will delete all private data associated with this account. This
             action cannot be reversed.
@@ -64,9 +65,15 @@ export function DeleteAccountButton() {
           <div className="grid gap-4 py-4 mb-2"></div>
           <DialogFooter className="flex md:justify-between">
             <Button variant="secondary">Cancel</Button>
-            <Button onClick={deleteAccount} variant="destructive" type="submit">
-              Delete account
-            </Button>
+            <form action="/auth/sign-out" method="post">
+              <Button
+                onClick={deleteAccount}
+                variant="destructive"
+                type="submit"
+              >
+                Delete account
+              </Button>
+            </form>
           </DialogFooter>
         </div>
       </DialogContent>

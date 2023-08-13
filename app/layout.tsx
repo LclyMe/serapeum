@@ -5,8 +5,9 @@ import { getSession } from "@/app/session";
 import { Header } from "./Header";
 
 export const metadata = {
-  title: "Serapeum",
-  description: "The Open Source Serapeum. A Lcly project.",
+  title: "The Serapeum",
+  description:
+    "Open source storage, collaboration, and AI tools designed for human data. A Lcly project.",
 };
 
 export default async function RootLayout({

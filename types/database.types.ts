@@ -1016,6 +1016,17 @@ export interface Database {
         }
         Returns: string
       }
+      get_vault_location_points: {
+        Args: {
+          vault_id: string
+        }
+        Returns: {
+          id: string
+          short_id: string
+          latitude: number
+          longitude: number
+        }[]
+      }
       gettransactionid: {
         Args: Record<PropertyKey, never>
         Returns: unknown

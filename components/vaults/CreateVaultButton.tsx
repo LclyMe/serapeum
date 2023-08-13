@@ -110,13 +110,13 @@ export function CreateVaultButton() {
                 className="col-span-3 mb-0"
               />
               <div />
-              <div className="w-full col-span-3 -mt-1 flex items-start opacity-60 ">
+              {/* <div className="w-full col-span-3 -mt-1 flex items-start opacity-60 ">
                 <FiInfo className="mr-2 " size={24} />
                 <span className="text-xs">
                   If left empty AI will generate one as you add entries to your
                   vault.
                 </span>
-              </div>
+              </div> */}
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="public" className="text-right">

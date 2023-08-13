@@ -11,7 +11,7 @@ import Embed from "react-embed";
 import "./TimelineFeed.css";
 import { Tweet } from "react-tweet";
 import { useSupabase } from "../providers/supabase-provider";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import EntriesSearch from "@/app/(vaults)/v/[vault_id]/components/EntriesSearch";
 import { useMemo, useState } from "react";
 import { Badge } from "../ui/badge";
@@ -43,6 +43,18 @@ const isValidURL = (string: string) => {
   return url.protocol === "http:" || url.protocol === "https:";
 };
 
+const getDateString = (created_at: Date, related_date?: Date) => {
+  let base = `Added: ${new Date(created_at).toLocaleDateString()} ${new Date(
+    created_at
+  ).toLocaleTimeString()}`;
+  if (related_date) {
+    base += ` | Date: ${new Date(related_date).toLocaleDateString()} ${new Date(
+      related_date
+    ).toLocaleTimeString()}`;
+  }
+  return base;
+};
+
 export function TimelineEntryCard({ entry }: { entry: any }) {
   const router = useRouter();
   const { supabase } = useSupabase();
@@ -64,11 +76,7 @@ export function TimelineEntryCard({ entry }: { entry: any }) {
   return (
     <VerticalTimelineElement
       className={"vertical-timeline-element--work"}
-      date={`Added: ${new Date(
-        entry.created_at
-      ).toLocaleDateString()} ${new Date(
-        entry.created_at
-      ).toLocaleTimeString()}`}
+      date={getDateString(entry.created_at, entry.related_date)}
       dateClassName="text-xs text-gray-500 w-full"
       iconStyle={{
         color: "#fff",
@@ -128,6 +136,9 @@ export function TimelineFeed({
   entries?: any[] | null;
   vault: any;
 }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const view = searchParams.get("view");
   const [filterIds, setFilterIds] = useState<string[] | null>(null);
   console.log("filterIds", filterIds);
   const filteredEntries = useMemo(
@@ -138,20 +149,26 @@ export function TimelineFeed({
     [entries, filterIds]
   );
   console.log("filteredEntries", filteredEntries);
+  const handleFilterChange = (value: string) => {
+    router.push(`/v/${vault.short_id}?view=${value}`);
+  };
   return (
     <>
       <div className="flex gap-5 flex-col-reverse md:flex-row items-center justify-between md:-mb-1">
         <div className="flex w-full">
-          <Select defaultValue="latest">
+          <Select
+            onValueChange={handleFilterChange}
+            defaultValue={view || "latest"}
+          >
             <SelectTrigger className="w-[140px] h-8 rounded-full">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="latest">Latest</SelectItem>
-              <SelectItem value="chronological">Chronological</SelectItem>
-              <SelectItem value="images">Images</SelectItem>
-              <SelectItem value="links">Links</SelectItem>
-              <SelectItem value="files">Files</SelectItem>
+              <SelectItem value="chron">Chronological</SelectItem>
+              {/* <SelectItem value="images">Images</SelectItem> */}
+              {/* <SelectItem value="links">Links</SelectItem> */}
+              {/* <SelectItem value="files">Files</SelectItem> */}
               <SelectItem value="map">Map</SelectItem>
             </SelectContent>
           </Select>

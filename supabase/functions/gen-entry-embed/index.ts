@@ -35,10 +35,13 @@ serve(async (req) => {
     content: newEntry.text,
     description: newEntry.description,
     name: newEntry.name,
-    createdAt: "2021-08-31T00:00:00.000Z",
+    createdAt: newEntry.created_at,
+    location: newEntry.location,
+    related_date: newEntry.related_date,
   };
 
-  const content = JSON.stringify(contentObj);
+  const validatedObj = Object.fromEntries(Object.entries(contentObj).filter(([_, v]) => v != null))
+  const content = JSON.stringify(validatedObj);
 
   const output = await pipe(content, {
     pooling: 'mean',

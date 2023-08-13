@@ -56,7 +56,7 @@ export function DeleteVaultButton({ vault }: { vault: any }) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Sure you want to delete?</DialogTitle>
+          <DialogTitle>Are you sure?</DialogTitle>
           <DialogDescription>
             This will delete all data and settings for this vault. This action
             cannot be reversed.

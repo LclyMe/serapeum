@@ -6,6 +6,7 @@ import { Header } from "@/app/Header";
 import SpinningIcon from "@/components/ui/SpinnerIcon";
 import { getSupabase } from "./session";
 import { VaultCard } from "@/components/vaults/VaultCard";
+import { FiArrowRight } from "react-icons/fi";
 
 export const dynamic = "force-dynamic";
 
@@ -48,10 +49,15 @@ export default async function Index() {
       <div className="flex flex-col items-center flex-grow">
         <div className="animate-in flex w-full flex-col gap-14 opacity-0 max-w-5xl px-3 py-12 lg:py-16 text-foreground">
           <div className="flex flex-col items-center mb-4 lg:mb-12">
-            <div className="flex gap-8 justify-center items-center">
-              <Link href="https://lcly.me/" target="_blank">
-                <SpinningIcon />
+            <div className="flex justify-center items-end opacity-90">
+              <Link
+                href="https://lcly.me/"
+                target="_blank"
+                className="text-5xl"
+              >
+                𝕊
               </Link>
+              <span className="text-2xl ml-1 opacity-90">erapeum</span>
             </div>
             <h1 className="sr-only">
               The Open Source Serapeum | a Lcly project
@@ -59,8 +65,9 @@ export default async function Index() {
             <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center mt-12 mb-5">
               Modern Data <strong>Archives</strong>
             </p>
-            <p className="mb-12 text-xl opacity-60">
-              Open source storage, collaboration, and AI tools for human data.
+            <p className="mb-12 text-xl opacity-60 text-center">
+              Open source storage, collaboration, and AI tools designed
+              <br /> for human data.
             </p>
             <div className="flex items-center gap-2">
               <div className="bg-foreground py-3 px-6 rounded-lg font-mono text-sm text-background">
@@ -154,13 +161,56 @@ export default async function Index() {
             </div>
           )}
 
-          <div>
-            <h2 className="text-2xl mb-6 text-center">Self host</h2>
-            <div className="">
-              <p className="mb-12 text-lg opacity-60 text-center">
+          <div className="flex flex-col justify-center items-center">
+            <h2 className="text-2xl mb-6">Developer API</h2>
+            <div className="mb-10">
+              <p className="text-center text-lg opacity-60">
+                You can use the Serapeum API to build your own apps or workflows
+                <br />
+                to store and search data in your vaults.
+              </p>
+              <a
+                href="https://github.com/LclyMe/serapeum#deploy-your-own"
+                target="_blank"
+                className="mt-3 text-lg text-blue-400 hover:text-blue-500 transition block flex items-center justify-center gap-2"
+              >
+                Read the documentation <FiArrowRight />
+              </a>
+            </div>
+          </div>
+
+          <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
+
+          <div className="flex flex-col justify-center items-center">
+            <h2 className="text-2xl mb-6">Self host</h2>
+            <div className="mb-10">
+              <p className="text-center text-lg opacity-60">
                 Serapeum is fully open source and can be self-hosted for maximum
                 <br /> control over your data.
               </p>
+              <a
+                href="https://github.com/LclyMe/serapeum#deploy-your-own"
+                target="_blank"
+                className="mt-3 text-lg text-blue-400 hover:text-blue-500 transition block flex items-center justify-center gap-2"
+              >
+                Learn how <FiArrowRight />
+              </a>
+            </div>
+            <div className="flex gap-5">
+              <Image
+                src={"/images/nextjs.svg"}
+                alt="Next.js"
+                height={60}
+                width={60}
+                className="p-3 bg-white shadow-lg rounded-xl"
+              />
+              <Image
+                src={"/images/supabase.png"}
+                alt="Supabase"
+                height={60}
+                width={60}
+                className="p-3 bg-gray-800 shadow rounded-xl"
+              />
             </div>
           </div>
 

@@ -19,6 +19,7 @@ import { nanoid } from "nanoid";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Textarea } from "../ui/textarea";
+import { DatePicker } from "../ui/date-picker";
 
 export function CreateEntryButton({ vaultId }: { vaultId: string }) {
   const router = useRouter();
@@ -27,6 +28,7 @@ export function CreateEntryButton({ vaultId }: { vaultId: string }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [text, setText] = useState("");
+  const [location, setLocation] = useState("");
 
   const handleCreateEntry = async () => {
     console.log("Creating entry...");
@@ -110,16 +112,15 @@ export function CreateEntryButton({ vaultId }: { vaultId: string }) {
                 onChange={(e) => setDescription(e.target.value)}
                 className="col-span-3 mb-0"
               />
-              <div />
-              <div className="w-full col-span-3 -mt-1 flex items-start opacity-60 ">
+              {/* <div className="w-full col-span-3 -mt-1 flex items-start opacity-60 ">
                 <FiInfo className="mr-2 " size={16} />
                 <span className="text-xs">
                   If left empty AI will generate one for you.
                 </span>
-              </div>
+              </div> */}
             </div>
             <div className="grid grid-cols-4 items-start gap-4">
-              <Label htmlFor="text" className="text-right mt-1">
+              <Label htmlFor="text" className="text-right">
                 Content
               </Label>
               <Textarea
@@ -127,6 +128,24 @@ export function CreateEntryButton({ vaultId }: { vaultId: string }) {
                 id="text"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
+                className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-start gap-4">
+              <Label htmlFor="text" className="text-right">
+                Related date
+              </Label>
+              <DatePicker />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="location" className="text-right">
+                Location
+              </Label>
+              <Input
+                placeholder="(optional)"
+                id="location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
                 className="col-span-3"
               />
             </div>
