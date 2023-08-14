@@ -28,7 +28,9 @@ export function CreateEntryButton({ vaultId }: { vaultId: string }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [text, setText] = useState("");
-  const [location, setLocation] = useState("");
+  const [lat, setLat] = useState("");
+  const [long, setLong] = useState("");
+  const [date, setDate] = useState<null | string>(null);
 
   const handleCreateEntry = async () => {
     console.log("Creating entry...");
@@ -44,6 +46,8 @@ export function CreateEntryButton({ vaultId }: { vaultId: string }) {
           text,
           short_id,
           vault_id: vaultId,
+          location: lat && long ? `POINT(${long} ${lat})` : null,
+          related_date: date,
         },
       ]);
 
@@ -51,6 +55,13 @@ export function CreateEntryButton({ vaultId }: { vaultId: string }) {
         console.error("Error creating entry:", error);
       } else {
         console.log("Entry added successfully:", data);
+        setName("");
+        setDescription("");
+        setText("");
+        setLat("");
+        setLong("");
+        setDate(null);
+
         router.refresh();
         setOpen(false);
       }
@@ -88,7 +99,22 @@ export function CreateEntryButton({ vaultId }: { vaultId: string }) {
           <DialogDescription>Add a new entry to the vault.</DialogDescription>
         </DialogHeader>
         <div>
-          <div className="grid gap-4 py-4 mb-2">
+          <div className="grid gap-3 py-4 mb-2">
+            <div className="grid grid-cols-4 items-start gap-4">
+              <Label htmlFor="text" className="text-right">
+                Content<sup>*</sup>
+              </Label>
+              <Textarea
+                placeholder="You can paste in text, markdown, and even links."
+                id="text"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                className="col-span-3"
+              />
+            </div>
+            <div className="m-0 text-xs text-foreground/30 flex justify-center">
+              Metadata
+            </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="name" className="text-right">
                 Name
@@ -121,33 +147,38 @@ export function CreateEntryButton({ vaultId }: { vaultId: string }) {
             </div>
             <div className="grid grid-cols-4 items-start gap-4">
               <Label htmlFor="text" className="text-right">
-                Content<sup>*</sup>
-              </Label>
-              <Textarea
-                placeholder="You can paste in text, markdown, and even links."
-                id="text"
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                className="col-span-3"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-start gap-4">
-              <Label htmlFor="text" className="text-right">
                 Related date
               </Label>
-              <DatePicker />
+              <Input
+                id="related_date"
+                type="date"
+                placeholder="(optional)"
+                value={date as any}
+                onChange={(e) => setDate(e.target.value)}
+                className="col-span-3 mb-0"
+              />
+              {/* <DatePicker onChange={setDate} date={date} /> */}
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="location" className="text-right">
                 Location
               </Label>
-              <Input
-                placeholder="(optional)"
-                id="location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                className="col-span-3"
-              />
+              <div className="col-span-3 grid grid-cols-2 gap-2">
+                <Input
+                  id="location"
+                  placeholder="Lat"
+                  value={lat}
+                  onChange={(e) => setLat(e.target.value)}
+                  className=""
+                />
+                <Input
+                  id="location"
+                  placeholder="Long"
+                  value={long}
+                  onChange={(e) => setLong(e.target.value)}
+                  className=""
+                />
+              </div>
             </div>
             {/* <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="public" className="text-right">

@@ -1,5 +1,6 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -46,18 +47,18 @@ export function VaultSecuritySettings({ vault }: { vault: any }) {
           <Label htmlFor="functional" className="flex flex-col space-y-1">
             <span>Encrypted</span>
             <span className="font-normal leading-snug text-muted-foreground text-sm opacity-50">
-              Encrypt the contents of this vault. This may limit the search and
-              analysis features.
+              Encrypt the contents of this vault.
             </span>
           </Label>
-          <Switch
+          <Badge variant="secondary">Comming soon</Badge>
+          {/* <Switch
             id="encrypted"
             disabled={isPublic}
             checked={isEncrypted}
             onCheckedChange={setEncypted}
-          />
+          /> */}
         </div>
-        <div className="flex items-center justify-between space-x-2">
+        {/* <div className="flex items-center justify-between space-x-2">
           <Label htmlFor="functional" className="flex flex-col space-y-1">
             <span>Public submissions</span>
             <span className="font-normal leading-snug text-muted-foreground text-sm opacity-50">
@@ -70,7 +71,7 @@ export function VaultSecuritySettings({ vault }: { vault: any }) {
             checked={allowPublicSubmissions}
             onCheckedChange={setAllowPublicSubmissions}
           />
-        </div>
+        </div> */}
       </CardContent>
       <CardFooter>
         <Button variant="outline" className="w-full">

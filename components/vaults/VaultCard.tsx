@@ -9,8 +9,9 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { FiBookmark, FiChevronRight, FiHeart } from "react-icons/fi";
+import { FiChevronRight, FiHeart } from "react-icons/fi";
 import Orb from "../ui/Orb";
+import { VaultLikeButton } from "./VaultLikeButton";
 
 type Vault = {
   id: string;
@@ -23,12 +24,19 @@ type Vault = {
 export function VaultCard({
   vault,
   compact,
+  noLike,
+  className,
 }: {
   vault: any;
   compact?: boolean;
+  noLike?: boolean;
+  className?: string;
 }) {
   return (
-    <Link href={"/v/" + (vault.short_id || vault.id)} className="h-full">
+    <Link
+      href={"/v/" + (vault.short_id || vault.id)}
+      className={cn("h-full", className)}
+    >
       <Card className="flex-grow h-full flex flex-col relative">
         {vault.short_id && (
           <span className="text-xs opacity-10 absolute right-3 top-3">
@@ -58,34 +66,37 @@ export function VaultCard({
               <div className="grid w-full items-center"></div>
             </form>
           </CardContent>
-          {compact && (
+          {compact && !noLike && (
             <div className="p-6 flex-grow flex md:flex-col md:gap-2 gap-3 justify-end items-end">
               <Button className="" size="sm" variant="outline">
                 <FiHeart />
               </Button>
-              <Button size="sm" variant="outline">
+              {/* <Button size="sm" variant="outline">
                 <FiBookmark
                   className={cn({
                     "fill-white": vault.pinned,
                   })}
                 />
-              </Button>
+              </Button> */}
             </div>
           )}
         </div>
         {!compact && (
-          <CardFooter className="flex justify-between items-end">
+          <CardFooter className="flex justify-between items-end md:items-center">
             <div>
-              <Button className="mr-2" size="sm" variant="outline">
-                <FiHeart />
-              </Button>
-              <Button size="sm" variant="outline">
+              {!noLike && <VaultLikeButton vaultId={vault.id} />}
+              {noLike && vault.public && (
+                <span className="text-sm">
+                  🌍<span className="text-foreground/70 ml-1">Public</span>
+                </span>
+              )}
+              {/* <Button size="sm" variant="outline">
                 <FiBookmark
                   className={cn({
                     "fill-white": vault.pinned,
                   })}
                 />
-              </Button>
+              </Button> */}
             </div>
             <Button variant="outline" size="sm">
               <FiChevronRight size={14} />

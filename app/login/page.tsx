@@ -28,9 +28,9 @@ export default function Login() {
         </svg>{" "}
         Back
       </Link>
-      <div className="w-1/2 flex items-center justify-center">
+      <div className="md:w-1/2 flex items-center justify-center">
         <form
-          className="flex flex-col justify-center min-w-[360px] gap-2 text-foreground"
+          className="flex flex-col justify-center md:min-w-[360px] min-w-full gap-2 text-foreground"
           action="/auth/sign-in"
           method="post"
         >
@@ -100,7 +100,7 @@ export default function Login() {
           objectFit="cover"
           width={600}
           height={800}
-          className="rounded-xl h-full min-w-[200px] mb-6 md:mb-0"
+          className="rounded-xl hidden md:block h-full min-w-[200px] mb-6 md:mb-0"
         />
       </div>
     </div>

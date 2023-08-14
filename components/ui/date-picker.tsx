@@ -13,9 +13,13 @@ import {
 } from "@/components/ui/popover";
 import { FiCalendar } from "react-icons/fi";
 
-export function DatePicker() {
-  const [date, setDate] = React.useState<Date>();
-
+export function DatePicker({
+  date,
+  onChange,
+}: {
+  date: Date | null;
+  onChange: (date: Date) => void;
+}) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -31,7 +35,14 @@ export function DatePicker() {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
-        <Calendar selected={date} onSelect={setDate} initialFocus />
+        <Calendar
+          selected={date || undefined}
+          onSelect={(e: any) => {
+            console.log("date", e);
+            onChange(e);
+          }}
+          initialFocus
+        />
       </PopoverContent>
     </Popover>
   );

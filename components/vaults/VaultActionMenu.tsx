@@ -16,8 +16,11 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import Link from "next/link";
+import { getSession } from "@/app/session";
 
-export default function VaultActionMenu({ vault }: { vault: any }) {
+export default async function VaultActionMenu({ vault }: { vault: any }) {
+  const session = await getSession();
+  const isCreator = session?.user?.id === vault.created_by;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -32,45 +35,18 @@ export default function VaultActionMenu({ vault }: { vault: any }) {
       <DropdownMenuContent>
         {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
         {/* <DropdownMenuSeparator /> */}
-        <DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer">
           <FiShare className="mr-2" /> Share
         </DropdownMenuItem>
-        <Link href={`/v/${vault.short_id}/settings`}>
-          <DropdownMenuItem>
-            <FiSettings className="mr-2" /> Settings
-          </DropdownMenuItem>
-        </Link>
+        {isCreator && (
+          <Link href={`/v/${vault.short_id}/settings`}>
+            <DropdownMenuItem>
+              <FiSettings className="mr-2" /> Settings
+            </DropdownMenuItem>
+          </Link>
+        )}
         {/* <DeleteVaultButton /> */}
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-}
-
-function DeleteVaultButton() {
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <DropdownMenuItem className="text-red-600 hover:text-red-800">
-          <FiTrash2 className="mr-2" /> Delete vault
-        </DropdownMenuItem>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Create vault</DialogTitle>
-          <DialogDescription>
-            Create a new vault for anything you need to store.
-          </DialogDescription>
-        </DialogHeader>
-        <div>
-          <div className="grid gap-4 py-4 mb-2"></div>
-          <DialogFooter>
-            <Button variant="secondary" type="submit">
-              Cancel
-            </Button>
-            <Button type="submit">Delete</Button>
-          </DialogFooter>
-        </div>
-      </DialogContent>
-    </Dialog>
   );
 }

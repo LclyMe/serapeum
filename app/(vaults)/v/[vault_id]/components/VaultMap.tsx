@@ -5,13 +5,12 @@ import Map, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 export default function VaultMap({ entries }: { entries: any[] }) {
-  console.log("entries: ", entries, entries[1].location.long);
   return (
     <Map
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
       initialViewState={{
-        longitude: entries[0].location.long,
-        latitude: entries[0].location.lat,
+        longitude: entries[0].longitude,
+        latitude: entries[0].latitude,
         zoom: 6,
       }}
       fog={{

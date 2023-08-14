@@ -33,7 +33,7 @@ export default async function ValutsPage() {
       {/* <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent" /> */}
       <div className="grid md:grid-cols-3 gap-3">
         {vaults?.map((vault) => (
-          <VaultCard vault={vault} />
+          <VaultCard noLike vault={vault} />
         ))}
       </div>
     </div>

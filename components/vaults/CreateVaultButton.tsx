@@ -19,6 +19,7 @@ import { useRef, useState } from "react";
 import { nanoid } from "nanoid";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Textarea } from "../ui/textarea";
 
 export function CreateVaultButton() {
   const router = useRouter();
@@ -98,18 +99,17 @@ export function CreateVaultButton() {
                 className="col-span-3"
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="description" className="text-right">
+            <div className="grid grid-cols-4 items-start gap-4">
+              <Label htmlFor="description" className="text-right mt-2">
                 Description
               </Label>
-              <Input
+              <Textarea
                 id="description"
                 placeholder="(optional)"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 className="col-span-3 mb-0"
               />
-              <div />
               {/* <div className="w-full col-span-3 -mt-1 flex items-start opacity-60 ">
                 <FiInfo className="mr-2 " size={24} />
                 <span className="text-xs">
@@ -131,7 +131,7 @@ export function CreateVaultButton() {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
+            {/* <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="encrypted" className="text-right">
                 Encrypted
               </Label>
@@ -143,7 +143,7 @@ export function CreateVaultButton() {
                   onCheckedChange={() => setIsEncrypted(!isEncrypted)}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
           <DialogFooter>
             <Button onClick={handleCreateVault} type="submit">

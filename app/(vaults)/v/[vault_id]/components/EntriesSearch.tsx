@@ -37,7 +37,15 @@ export default function EntriesSearch({
     }
     const parsedEntries = JSON.parse(entries);
     console.log(parsedEntries);
-    onResult(parsedEntries.map((entry: any) => entry.id));
+    console.log(
+      "sorted",
+      parsedEntries.sort((a: any, b: any) => a.similarity > b.similarity)
+    );
+    onResult(
+      parsedEntries
+        .sort((a: any, b: any) => a.similarity > b.similarity)
+        .map((entry: any) => entry.id)
+    );
     setLoading(false);
   }, [supabase, setLoading, input, onResult, vault_id]);
 

@@ -17,28 +17,8 @@ export default async function Index() {
     .from("vaults")
     .select("*")
     .match({ public: true })
+    .order("likes", { ascending: false })
     .limit(6);
-
-  const resources = [
-    {
-      title: "Mystery 1",
-      subtitle: "TODO",
-      url: null,
-      image: "/images/ilu2.png",
-    },
-    {
-      title: "Mystery 2",
-      subtitle: "TODO",
-      url: null,
-      image: "/images/ilu1.png",
-    },
-    {
-      title: "Mystery 3",
-      subtitle: "TODO",
-      url: null,
-      image: "/images/ilu3.png",
-    },
-  ];
 
   return (
     <div className="flex flex-col flex-grow">
@@ -53,7 +33,7 @@ export default async function Index() {
               >
                 𝕊
               </Link>
-              <span className="text-2xl ml-1 opacity-90">erapeum</span>
+              <span className="text-2xl opacity-90">erapeum</span>
             </div>
             <h1 className="sr-only">
               The Open Source Serapeum | a Lcly project
@@ -97,68 +77,26 @@ export default async function Index() {
               <div className="flex flex-col gap-8 text-foreground">
                 {/* <h2 className="text-lg font-bold text-center">Follow the</h2> */}
                 <div className="grid md:grid-cols-3 gap-4">
-                  {vaults?.map((vault) => (
+                  {vaults?.slice(0, 3)?.map((vault) => (
                     <VaultCard key={vault.id} vault={vault} />
                   ))}
                 </div>
-              </div>
-            </div>
-          )}
-
-          {false && (
-            <>
-              <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
-
-              <div className="flex flex-col gap-8 text-foreground overflow-hidden relative">
-                {/* <h2 className="text-lg font-bold text-center">Follow the</h2> */}
-                <div className="grid grid-cols-3 gap-4">
-                  {resources.map(({ title, image }) => (
-                    <Image
-                      src={image}
-                      alt={title}
-                      height={370}
-                      width={370}
-                      className="relative flex flex-col group rounded-lg border hover:border-foreground transition duration-200 w-full h-full"
+                <div className="md:grid md:grid-cols-6 gap-4 hidden">
+                  <div className="grid-col-1" />
+                  {vaults?.slice(3, 5)?.map((vault) => (
+                    <VaultCard
+                      className="col-span-2"
+                      key={vault.id}
+                      vault={vault}
                     />
                   ))}
+                  <div className="grid-col-1" />
                 </div>
               </div>
-            </>
+            </div>
           )}
 
           <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
-
-          {false && (
-            <div className="flex flex-col gap-8 text-foreground">
-              <div className="grid gap-2 justify-center mx-auto text-center">
-                <h2 className="text-lg font-bold text-center">The legend</h2>
-                <div className="bg-foreground py-3 px-6 rounded-lg font-mono text-sm mt-4 text-background w-[340px] sm:w-[460px] md:w-[540px] md:w-[660px]">
-                  <p className="text-md text-center text-white dark:text-black py-4">
-                    In a remote and desolate desert lies the undiscovered
-                    Serapeum, a fabled temple veiled in mystery.{" "}
-                    <span className="block mt-2">
-                      Whispers tell of a hidden entrance, protected by illusions
-                      and riddles, known only to the chosen few.
-                    </span>{" "}
-                    <span className="block mt-2">
-                      Legend speaks of ancient knowledge and cosmic powers
-                      concealed within its cryptic walls.
-                    </span>{" "}
-                    <span className="block mt-2">
-                      Tales of half-human, half-sand guardians add to the
-                      allure, while shimmering celestial lights dance above,
-                      revealing hidden prophecies.
-                    </span>{" "}
-                    <span className="block mt-2">
-                      Yet, its exact location remains elusive, a mystery that
-                      continues to beckon the hearts of those who seek the
-                      enigmatic truths that lie beyond the shifting sands.
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
 
           <div className="flex flex-col justify-center items-center">
             <h2 className="text-2xl mb-6">Developer API</h2>
@@ -225,13 +163,13 @@ export default async function Index() {
               </Link>
               /{" "}
               <span className="ml-1">
-                Follow on{" "}
+                View the{" "}
                 <Link
-                  href="https://x.com/d11erh"
+                  href="https://app.usefathom.com/share/skfnzhbe/serapeum"
                   target="_blank"
-                  className="text-md"
+                  className="text-md font-semibold"
                 >
-                  𝕏
+                  analytics
                 </Link>
               </span>
             </p>

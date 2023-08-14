@@ -56,21 +56,6 @@ const getDateString = (created_at: Date, related_date?: Date) => {
 };
 
 export function TimelineEntryCard({ entry }: { entry: any }) {
-  const router = useRouter();
-  const { supabase } = useSupabase();
-  const channel = supabase
-    .channel("changes")
-    .on(
-      "postgres_changes",
-      {
-        event: "INSERT",
-        schema: "public",
-        table: "entries",
-        filter: "vault_id=eq." + entry.vault_id,
-      },
-      (payload) => router.refresh()
-    )
-    .subscribe();
   const isURL = isValidURL(entry.text);
   const tweetId = isURL && getTweetIdFromURL(entry.text);
   return (
@@ -93,7 +78,7 @@ export function TimelineEntryCard({ entry }: { entry: any }) {
         </h3>
       )}
       {entry.description && (
-        <h4 className="vertical-timeline-element-subtitle">
+        <h4 className="vertical-timeline-element-subtitle opacity-70">
           {entry.description}
         </h4>
       )}
@@ -103,7 +88,7 @@ export function TimelineEntryCard({ entry }: { entry: any }) {
         </div>
       )}
       {isURL && !tweetId && (
-        <div>
+        <div className="mt-3">
           <Embed url={entry.text} />
         </div>
       )}
@@ -137,6 +122,20 @@ export function TimelineFeed({
   vault: any;
 }) {
   const router = useRouter();
+  const { supabase } = useSupabase();
+  const channel = supabase
+    .channel("changes")
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "entries",
+        filter: "vault_id=eq." + vault.id,
+      },
+      (payload) => router.refresh()
+    )
+    .subscribe();
   const searchParams = useSearchParams();
   const view = searchParams.get("view");
   const [filterIds, setFilterIds] = useState<string[] | null>(null);
@@ -144,7 +143,9 @@ export function TimelineFeed({
   const filteredEntries = useMemo(
     () =>
       filterIds
-        ? entries?.filter((entry) => filterIds.includes(entry.id))
+        ? filterIds
+            .map((id) => entries?.find((e) => e.id === id))
+            .filter(Boolean)
         : entries,
     [entries, filterIds]
   );
@@ -154,7 +155,14 @@ export function TimelineFeed({
   };
   return (
     <>
-      <div className="flex gap-5 flex-col-reverse md:flex-row items-center justify-between md:-mb-1">
+      <div
+        className={cn(
+          "flex gap-5 flex-col-reverse md:flex-row items-center justify-between",
+          {
+            "md:-mb-1": entries && entries.length > 3,
+          }
+        )}
+      >
         <div className="flex w-full">
           <Select
             onValueChange={handleFilterChange}
@@ -173,10 +181,15 @@ export function TimelineFeed({
             </SelectContent>
           </Select>
         </div>
-        <EntriesSearch
-          vault_id={vault.id}
-          onResult={(ids) => setFilterIds(ids)}
-        />
+        {entries && entries.length > 3 && (
+          <EntriesSearch
+            vault_id={vault.id}
+            onResult={(ids) => {
+              console.log("ids", ids);
+              setFilterIds(ids);
+            }}
+          />
+        )}
       </div>
       <VerticalTimeline layout="1-column-left">
         {filteredEntries?.map((entry) => (

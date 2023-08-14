@@ -39,9 +39,13 @@ const getLatestEntries = async (vaultId: string) => {
 
 const getMapEntries = async (vaultId: string) => {
   const supabase = await getSupabase();
-  const { data: entries } = await supabase.rpc("get_vault_location_points", {
-    vault_id: vaultId,
-  });
+  const { data: entries, error } = await supabase.rpc(
+    "get_vault_location_points",
+    {
+      vault_id: vaultId,
+    }
+  );
+  console.log("location entries", entries, error);
   return entries;
 };
 
